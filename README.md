@@ -44,7 +44,7 @@ void setup_input(Mcp23017 mcp, uint gpio_irq) {
 	gpio_set_irq_enabled_with_callback(gpio_irq, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
 
 	//once we are listening for interrupts clear previous ones just incase
-	int int_values = mcp0.get_interrupt_values();
+	int int_values = mcp.get_interrupt_values();
 }
 
 int main() {
