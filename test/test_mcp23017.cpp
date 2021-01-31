@@ -23,24 +23,24 @@ Mcp23017 mcp(i2c0, 0x20); //NOLINT
 
 TEST_CASE("Bit Write", "[mcp23017]") {
 	int value=0;
-	Mcp23017::set_bit(value, 0, true);
+	set_bit(value, 0, true);
 	REQUIRE(value == 0b0000000000000001);
-	Mcp23017::set_bit(value, 1, true);
+	set_bit(value, 1, true);
 	REQUIRE(value == 0b0000000000000011);
-	Mcp23017::set_bit(value, 6, true);
+	set_bit(value, 6, true);
 	REQUIRE(value == 0b0000000001000011);
-	Mcp23017::set_bit(value, 7, true);
+	set_bit(value, 7, true);
 	REQUIRE(value == 0b0000000011000011);
-	Mcp23017::set_bit(value, 15, true);
+	set_bit(value, 15, true);
 	REQUIRE(value == 0b1000000011000011);
 }
 
 TEST_CASE("Bit Read", "[mcp23017]") {
-	REQUIRE(Mcp23017::is_bit_set(0b001, 0) == true);
-	REQUIRE(Mcp23017::is_bit_set(0b001, 1) == false);
-	REQUIRE(Mcp23017::is_bit_set(0b001, 2) == false);
-	REQUIRE(Mcp23017::is_bit_set(0b1000000000000, 2) == false);
-	REQUIRE(Mcp23017::is_bit_set(0b1000000000000, 12) == true);
+	REQUIRE(is_bit_set(0b001, 0) == true);
+	REQUIRE(is_bit_set(0b001, 1) == false);
+	REQUIRE(is_bit_set(0b001, 2) == false);
+	REQUIRE(is_bit_set(0b1000000000000, 2) == false);
+	REQUIRE(is_bit_set(0b1000000000000, 12) == true);
 }
 
 TEST_CASE("Set Direction - Input", "[mcp23017]") {

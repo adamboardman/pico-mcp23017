@@ -101,23 +101,6 @@ int Mcp23017::setup_bank_configuration(int reg, bool mirroring, bool polarity) {
 	return write_register(reg, ioConValue);
 }
 
-void Mcp23017::set_bit(int &value, int bit, bool set) {
-	if (bit >= 0 && bit <= 15) {
-		if (set) {
-			value |= (1 << bit);
-		} else {
-			value &= ~(1 << bit);
-		}
-	}
-}
-
-bool Mcp23017::is_bit_set(int value, int bit) {
-	if (bit >= 0 && bit <= 15) {
-		return (bool) (0x1 & (value >> bit));
-	}
-	return false;
-}
-
 int Mcp23017::get_last_interrupt_pin() {
 	int intFlag;
 

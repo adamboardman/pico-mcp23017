@@ -32,4 +32,21 @@
 #define MCP23017_IOCON_ODR_BIT 2
 #define MCP23017_IOCON_INTPOL_BIT 1
 
+inline void set_bit(int &value, int bit, bool set) {
+	if (bit >= 0 && bit <= 15) {
+		if (set) {
+			value |= (1 << bit);
+		} else {
+			value &= ~(1 << bit);
+		}
+	}
+}
+
+inline bool is_bit_set(int value, int bit) {
+	if (bit >= 0 && bit <= 15) {
+		return (bool) (0x1 & (value >> bit));
+	}
+	return false;
+}
+
 #endif //MCP23017_PRIVATE_H

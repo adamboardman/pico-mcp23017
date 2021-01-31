@@ -141,10 +141,6 @@ public:
 	 */
 	int flush_output();
 
-	static void set_bit(int &value, int bit, bool set);
-
-	static bool is_bit_set(int value, int bit);
-
 private:
 	int setup_bank_configuration(int reg, bool mirroring, bool polarity);
 
