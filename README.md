@@ -4,11 +4,21 @@ This library allows you to talk to MCP23017 16bit I/O Expander
 
 # Usage
 
+## Include library
+
+Check the module out as a submodule of your project to say: modules/pico-mcp23017 then
+add the sub directory and link the library in your CMakeLists.txt:
+```
+add_subdirectory(modules/pico-mcp23017)
+
+target_link_libraries( ... pico_mcp23017)
+```
+
 ## Input
 
 ```
 #include "hardware/i2c.h"
-#include "modules/pico-mcp23017/api/mcp23017.h"
+#include "mcp23017.h"
 
 static const bool MIRROR_INTERRUPTS = true; //save a gpio by mirroring interrupts across both banks
 static const bool OPEN_DRAIN_INTERRUPT_ACTIVE = false;
@@ -86,7 +96,7 @@ int main() {
 
 ```
 #include "hardware/i2c.h"
-#include "modules/pico-mcp23017/api/mcp23017.h"
+#include "mcp23017.h"
 
 static const int MCP_ALL_PINS_OFF = 0x0000;
 

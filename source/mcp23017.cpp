@@ -9,13 +9,9 @@
 #include <cstdio>
 
 #ifdef MOCK_PICO_PI
-
 #include "../test/pico_pi_mocks.h"
-
 #else
-
 #include "hardware/gpio.h"
-
 #endif
 
 
