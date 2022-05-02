@@ -123,7 +123,7 @@ int main() {
 	gpio_pull_up(I2C_GPIO_PIN_SDA);
 	gpio_pull_up(I2C_GPIO_PIN_SLC);
 
-    setup_output(mcp1);
+	setup_output(mcp1);
 	mcp1.set_all_output_bits(MCP_ALL_PINS_OFF);
 
 	printf("Setting MCP(0x21) pin 4\n");
