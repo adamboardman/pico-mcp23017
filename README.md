@@ -33,7 +33,7 @@ static const int MCP_ALL_PINS_INTERRUPT_ENABLED = 0xffff;
 #define I2C_GPIO_PIN_SLC 21
 
 Mcp23017 mcp0(i2c0, 0x20); // MCP with A0,1,2 to GND
-bool interrupt_on_mcp0 = false;
+bool interrupt_on_mcp0 = false; //set to true if you want to read values on startup
 
 void gpio_callback(uint gpio, uint32_t events) {
 	printf("IRQ callback on GPIO %u, events: %lu\n", gpio, events);
