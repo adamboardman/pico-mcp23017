@@ -19,7 +19,7 @@ Mcp23017::Mcp23017(i2c_inst_t *_i2c, uint8_t _address) : i2c(_i2c), address(_add
 
 }
 
-int Mcp23017::write_register(uint8_t reg, uint8_t value) {
+int Mcp23017::write_register(uint8_t reg, uint8_t value) const {
 	uint8_t command[] = { reg, value };
 	int result = i2c_write_blocking(i2c, address, command, 2, false);
 	if (result == PICO_ERROR_GENERIC) {
@@ -28,7 +28,7 @@ int Mcp23017::write_register(uint8_t reg, uint8_t value) {
 	return PICO_ERROR_NONE;
 }
 
-int Mcp23017::read_register(uint8_t reg) {
+int Mcp23017::read_register(uint8_t reg) const {
 	uint8_t buffer = 0;
 	int result;
 	result = i2c_write_blocking(i2c, address,  &reg, 1, true);
@@ -45,7 +45,7 @@ int Mcp23017::read_register(uint8_t reg) {
 	return buffer;
 }
 
-int Mcp23017::write_dual_registers(uint8_t reg, int value) {
+int Mcp23017::write_dual_registers(uint8_t reg, int value) const {
 	uint8_t command[] = {
 			reg,
 			static_cast<uint8_t>(value & 0xff),
@@ -58,7 +58,7 @@ int Mcp23017::write_dual_registers(uint8_t reg, int value) {
 	return PICO_ERROR_NONE;
 }
 
-int Mcp23017::read_dual_registers(uint8_t reg) {
+int Mcp23017::read_dual_registers(uint8_t reg) const {
 	uint8_t buffer[2]{};
 	int result;
 	result = i2c_write_blocking(i2c, address,  &reg, 1, true);
@@ -75,7 +75,7 @@ int Mcp23017::read_dual_registers(uint8_t reg) {
 	return (buffer[1]<<8) + buffer[0];
 }
 
-int Mcp23017::setup(bool mirroring, bool polarity) {
+int Mcp23017::setup(bool mirroring, bool polarity) const {
 	int result;
 	result = setup_bank_configuration(MCP23017_IOCONA, mirroring, polarity);
 	if (result != 0)
@@ -85,7 +85,7 @@ int Mcp23017::setup(bool mirroring, bool polarity) {
 	return result;
 }
 
-int Mcp23017::setup_bank_configuration(int reg, bool mirroring, bool polarity) {
+int Mcp23017::setup_bank_configuration(int reg, bool mirroring, bool polarity) const {
 	int ioConValue = 0;
 	set_bit(ioConValue, MCP23017_IOCON_BANK_BIT, false);
 	set_bit(ioConValue, MCP23017_IOCON_MIRROR_BIT, mirroring);
@@ -97,7 +97,7 @@ int Mcp23017::setup_bank_configuration(int reg, bool mirroring, bool polarity) {
 	return write_register(reg, ioConValue);
 }
 
-int Mcp23017::get_last_interrupt_pin() {
+int Mcp23017::get_last_interrupt_pin() const {
 	int intFlag;
 
 	intFlag = read_dual_registers(MCP23017_INTFA); //also MCP23017_INTFB
@@ -113,7 +113,7 @@ int Mcp23017::get_last_interrupt_pin() {
 	return PICO_ERROR_GENERIC;
 }
 
-int Mcp23017::get_interrupt_values() {
+int Mcp23017::get_interrupt_values() const {
 	return read_dual_registers(MCP23017_INTCAPA); //will include MCP23017_INTCAPB
 }
 
@@ -130,23 +130,27 @@ bool Mcp23017::get_input_pin_value(int pin) const {
 	return is_bit_set(last_input, pin);
 }
 
+uint16_t Mcp23017::get_input_pin_values() const {
+	return last_input;
+}
+
 int Mcp23017::get_address() const {
 	return address;
 }
 
-int Mcp23017::set_io_direction(int direction) {
+int Mcp23017::set_io_direction(int direction) const {
 	return write_dual_registers(MCP23017_IODIRA, direction); //inc MCP23017_IODIRB
 }
 
-int Mcp23017::set_pullup(int direction) {
+int Mcp23017::set_pullup(int direction) const {
 	return write_dual_registers(MCP23017_GPPUA, direction); //inc MCP23017_GPPUB, direction >> 8);
 }
 
-int Mcp23017::set_interrupt_type(int compare_to_reg) {
+int Mcp23017::set_interrupt_type(int compare_to_reg) const {
 	return write_dual_registers(MCP23017_INTCONA, compare_to_reg); //inc MCP23017_INTCONB
 }
 
-int Mcp23017::enable_interrupt(int enabled) {
+int Mcp23017::enable_interrupt(int enabled) const {
 	return write_dual_registers(MCP23017_GPINTENA, enabled); //inc MCP23017_GPINTENB
 }
 
@@ -163,6 +167,6 @@ bool Mcp23017::get_output_bit_for_pin(int pin) const {
 	return is_bit_set(output, pin);
 }
 
-int Mcp23017::flush_output() {
+int Mcp23017::flush_output() const {
 	return write_dual_registers(MCP23017_GPIOA, output); //inc MCP23017_GPIOB
 }
