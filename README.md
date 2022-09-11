@@ -6,9 +6,13 @@ This library allows you to talk to MCP23017 16bit I/O Expander
 
 ## Include library
 
-Check the module out as a submodule of your project to say: modules/pico-mcp23017 then
-add the sub directory and link the library in your CMakeLists.txt:
+Check the module out as a submodule of your project to, say: modules/pico-mcp23017.
+You will also need [pico-interfaces](https://github.com/adamboardman/pico-interfaces).
+
+Then add the subdirectories and link the library in your CMakeLists.txt:
+
 ```
+add_subdirectory(modules/pico-interfaces)
 add_subdirectory(modules/pico-mcp23017)
 
 target_link_libraries( ... pico_mcp23017)
@@ -16,7 +20,7 @@ target_link_libraries( ... pico_mcp23017)
 
 ## Input
 
-```
+```C++
 #include "hardware/i2c.h"
 #include "mcp23017.h"
 
@@ -94,7 +98,7 @@ int main() {
 ## Output
 
 
-```
+```C++
 #include "hardware/i2c.h"
 #include "mcp23017.h"
 
@@ -141,7 +145,8 @@ If you plan on fixing bugs or extending the library then you must.
 
 Install Catch2 version 3, it might be available on your desktop linux distro,
 though possibly only an older version. Or you can download, build and install it:
-```
+
+```sh
 git clone  https://github.com/catchorg/Catch2.git
 cd Catch2
 cmake -Bbuild -H. -DBUILD_TESTING=OFF
@@ -150,7 +155,8 @@ sudo cmake --build build/ --target install
 ```
 
 Build and run the test code:
-```
+
+```sh
 cd test
 mkdir build
 cd build
