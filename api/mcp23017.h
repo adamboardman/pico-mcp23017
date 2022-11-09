@@ -53,19 +53,19 @@ public:
 	 * @param polarity the polarity of the interrupt, true = active-high, false = active-low
 	 * @return PICO_ERROR_NONE or PICO_ERROR_GENERIC
 	 */
-	int setup(bool mirroring, bool polarity);
+	int setup(bool mirroring, bool polarity) const;
 
 	/**
 	 * Gets the first pin that has changed values within the last interrupt, not 100% reliable
 	 * @return pin 0-15 or PICO_ERROR_GENERIC
 	 */
-	int get_last_interrupt_pin();
+	int get_last_interrupt_pin() const;
 
 	/**
 	 * Gets the values of all interrupts for client code interrogation
 	 * @return values or PICO_ERROR_GENERIC
 	 */
-	int get_interrupt_values();
+	int get_interrupt_values() const;
 
 	/**
 	 * Stores the last input state in the class for later interrogation with get_input_pin_value
@@ -81,6 +81,12 @@ public:
 	bool get_input_pin_value(int pin) const;
 
 	/**
+	 * Returns all the pin states from the last update_input_values
+	 * @return the pin values
+	 */
+	uint16_t get_input_pin_values() const;
+
+	/**
 	 * Gets the address we were constructed to talk to
 	 * @return the address
 	 */
@@ -91,28 +97,28 @@ public:
 	 * @param direction '1' bits input, '0' bits output
 	 * @return PICO_ERROR_NONE or PICO_ERROR_GENERIC
 	 */
-	int set_io_direction(int direction);
+	int set_io_direction(int direction) const;
 
 	/**
 	 * Sets the pull-up resistors for the pins (100K)
 	 * @param direction '1' bits enable, '0' bits disable
 	 * @return PICO_ERROR_NONE or PICO_ERROR_GENERIC
 	 */
-	int set_pullup(int direction);
+	int set_pullup(int direction) const;
 
 	/**
 	 * Sets the interrupt control register
 	 * @param compare_to_reg '1' bits compare to default values, '0' bits compare to previous values
 	 * @return PICO_ERROR_NONE or PICO_ERROR_GENERIC
 	 */
-	int set_interrupt_type(int compare_to_reg);
+	int set_interrupt_type(int compare_to_reg) const;
 
 	/**
 	 * Sets the interrupt enabled register
 	 * @param enabled '1' bits enable, '0' bits disable
 	 * @return PICO_ERROR_NONE or PICO_ERROR_GENERIC
 	 */
-	int enable_interrupt(int enabled);
+	int enable_interrupt(int enabled) const;
 
 	/**
 	 * Sets all the output bits at once, also stores this as the internal state for later per pin manipulation with set_output_bit_for_pin
@@ -139,18 +145,18 @@ public:
 	 * Flushes the internal output state to the device
 	 * @return PICO_ERROR_NONE or PICO_ERROR_GENERIC
 	 */
-	int flush_output();
+	int flush_output() const;
 
 private:
-	int setup_bank_configuration(int reg, bool mirroring, bool polarity);
+	int setup_bank_configuration(int reg, bool mirroring, bool polarity) const;
 
-	int write_register(uint8_t reg, uint8_t value);
+	int write_register(uint8_t reg, uint8_t value) const;
 
-	int read_register(uint8_t reg);
+	int read_register(uint8_t reg) const;
 
-	int read_dual_registers(uint8_t reg);
+	int read_dual_registers(uint8_t reg) const;
 
-	int write_dual_registers(uint8_t reg, int value);
+	int write_dual_registers(uint8_t reg, int value) const;
 
 private:
 	i2c_inst_t *i2c;
