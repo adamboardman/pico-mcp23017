@@ -117,7 +117,7 @@ int Mcp23017::get_interrupt_values() const {
 	return read_dual_registers(MCP23017_INTCAPA); //will include MCP23017_INTCAPB
 }
 
-int Mcp23017::update_input_values() {
+int Mcp23017::update_and_get_input_values() {
 	int result = read_dual_registers(MCP23017_GPIOA); //will include MCP23017_GPIOB
 	if (result != PICO_ERROR_GENERIC) {
 		last_input = result;
@@ -126,11 +126,11 @@ int Mcp23017::update_input_values() {
 	return result;
 }
 
-bool Mcp23017::get_input_pin_value(int pin) const {
+bool Mcp23017::get_last_input_pin_value(int pin) const {
 	return is_bit_set(last_input, pin);
 }
 
-uint16_t Mcp23017::get_input_pin_values() const {
+uint16_t Mcp23017::get_last_input_pin_values() const {
 	return last_input;
 }
 

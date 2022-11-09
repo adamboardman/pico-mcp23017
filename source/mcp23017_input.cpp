@@ -11,5 +11,5 @@ Mcp23017_input::Mcp23017_input(Mcp23017 &mcp, int detect)
 }
 
 bool Mcp23017_input::get_current_state() const {
-	return _mcp_detect.get_input_pin_value(_detect_pin);
+	return _mcp_detect.get_last_input_pin_value(_detect_pin);
 }

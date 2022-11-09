@@ -68,23 +68,24 @@ public:
 	int get_interrupt_values() const;
 
 	/**
-	 * Stores the last input state in the class for later interrogation with get_input_pin_value
-	 * @return PICO_ERROR_NONE or PICO_ERROR_GENERIC
+	 * Stores and returns the last input state in the class for later interrogation with
+	 * get_last_input_pin_value or get_last_input_pin_values
+	 * @return the pin values or PICO_ERROR_NONE or PICO_ERROR_GENERIC
 	 */
-	int update_input_values();
+	int update_and_get_input_values();
 
 	/**
-	 * Checks the pin state from the last update_input_values
+	 * Checks the pin state from the last update_and_get_input_values
 	 * @param pin the pin to query
 	 * @return the pin's state
 	 */
-	bool get_input_pin_value(int pin) const;
+	bool get_last_input_pin_value(int pin) const;
 
 	/**
-	 * Returns all the pin states from the last update_input_values
+	 * Returns all the pin states from the last update_and_get_input_values
 	 * @return the pin values
 	 */
-	uint16_t get_input_pin_values() const;
+	uint16_t get_last_input_pin_values() const;
 
 	/**
 	 * Gets the address we were constructed to talk to

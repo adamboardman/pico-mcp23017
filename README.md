@@ -79,14 +79,14 @@ int main() {
 			interrupt_on_mcp0 = false;
 			int pin = mcp0.get_last_interrupt_pin();
 			int int_values = mcp0.get_interrupt_values();
-			int input_values_ok = mcp0.update_input_values();
+			int input_values_ok = mcp0.update_and_get_input_values();
 
 			printf("MCP(0x%2x), PIN: %d, Int:%d, InputOK:%d\n", mcp0.get_address(), pin, int_values, input_values_ok);
-			printf("InputPin0: %d\n", mcp0.get_input_pin_value(0));
-			printf("InputPin1: %d\n", mcp0.get_input_pin_value(1));
-			printf("InputPin2: %d\n", mcp0.get_input_pin_value(2));
-			printf("InputPin3: %d\n", mcp0.get_input_pin_value(3));
-			light_switch.switch_to_state(mcp0.get_input_pin_value(1));
+			printf("InputPin0: %d\n", mcp0.get_last_input_pin_value(0));
+			printf("InputPin1: %d\n", mcp0.get_last_input_pin_value(1));
+			printf("InputPin2: %d\n", mcp0.get_last_input_pin_value(2));
+			printf("InputPin3: %d\n", mcp0.get_last_input_pin_value(3));
+			light_switch.switch_to_state(mcp0.get_last_input_pin_value(1));
 		}
 
 		__wfe();
